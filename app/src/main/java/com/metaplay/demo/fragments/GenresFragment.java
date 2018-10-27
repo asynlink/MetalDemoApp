@@ -1,6 +1,7 @@
 package com.metaplay.demo.fragments;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.app.AlertDialog;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -55,12 +57,12 @@ public class GenresFragment extends ParentFragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_detail_genres, container, false);
 
-        OverScrollDecoratorHelper.setUpOverScroll((ScrollView)rootView.findViewById(R.id.genresPage));
+        OverScrollDecoratorHelper.setUpOverScroll((ScrollView) rootView.findViewById(R.id.genresPage));
 
         mLayoutInflater = inflater;
         mRootView = rootView;
 
-        mProgressBar = (ProgressBar)rootView.findViewById(R.id.progress_loader);
+        mProgressBar = (ProgressBar) rootView.findViewById(R.id.progress_loader);
 
         if (mModel.getFullList().getValue() != null) {
             onDisplay();
@@ -100,70 +102,75 @@ public class GenresFragment extends ParentFragment {
 
                 } else {
                     Toast.makeText(getContext(), response.getResult(), Toast.LENGTH_LONG).show();
+                    onPopupMenu();
                 }
             }
+        }
+
+        public void onFailed() {
+
         }
     }
 
     //Dynamically allocate the genres list!
     private void onDisplay() {
-         Genres[] genresData = mModel.getFullList().getValue();
+        Genres[] genresData = mModel.getFullList().getValue();
 
-         LinearLayout galleryView = (LinearLayout)mRootView.findViewById(R.id.genresParentView);
-         if (genresData != null && genresData.length > 0) {
-             mRootView.findViewById(R.id.buttonsSection).setVisibility(View.VISIBLE);
-             for (Genres genres : genresData) {
-                 View genresListView = LayoutInflater.from(getContext())
-                         .inflate(R.layout.genres_layout, galleryView, false  );
+        LinearLayout galleryView = (LinearLayout) mRootView.findViewById(R.id.genresParentView);
+        if (genresData != null && genresData.length > 0) {
+            mRootView.findViewById(R.id.buttonsSection).setVisibility(View.VISIBLE);
+            for (Genres genres : genresData) {
+                View genresListView = LayoutInflater.from(getContext())
+                        .inflate(R.layout.genres_layout, galleryView, false);
 
-                 ((TextView)genresListView.findViewById(R.id.genresTitle)).setText(genres.name.toUpperCase());
+                ((TextView) genresListView.findViewById(R.id.genresTitle)).setText(genres.name.toUpperCase());
 
-                 LinearLayout itemListView = (LinearLayout)genresListView.findViewById(R.id.genresGallery);
+                LinearLayout itemListView = (LinearLayout) genresListView.findViewById(R.id.genresGallery);
 
-                 for (Movie movie : genres.movies) {
-                     View movieView = mLayoutInflater.inflate(R.layout.movie_button_layout, itemListView, false);
-                     TextView text = movieView.findViewById(R.id.movie_text);
-                     text.setText(movie.title.toUpperCase());
+                for (Movie movie : genres.movies) {
+                    View movieView = mLayoutInflater.inflate(R.layout.movie_button_layout, itemListView, false);
+                    TextView text = movieView.findViewById(R.id.movie_text);
+                    text.setText(movie.title.toUpperCase());
 
-                     ImageView img = (ImageView)movieView.findViewById(R.id.movie_image);
-                     img.setTag(movie);
-                     img.setOnClickListener(new View.OnClickListener() {
-                         @Override
-                         public void onClick(View v) {
-                             Movie movie = (Movie)v.getTag();
-                             if (movie != null) {
-                                 mModel.setSelected(movie);
+                    ImageView img = (ImageView) movieView.findViewById(R.id.movie_image);
+                    img.setTag(movie);
+                    img.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Movie movie = (Movie) v.getTag();
+                            if (movie != null) {
+                                mModel.setSelected(movie);
 
-                                 MovieDetailFragment fragment = new MovieDetailFragment();
-                                 replaceFragment(fragment, R.id.movie_detail_container);
-                             }
-                         }
-                     });
+                                MovieDetailFragment fragment = new MovieDetailFragment();
+                                replaceFragment(fragment, R.id.movie_detail_container);
+                            }
+                        }
+                    });
 
-                     itemListView.addView(movieView);
-                     Bitmap bitMap = ImageCache.getInstance().getBitmapFromMemCache(movie.id);
-                     if (bitMap != null) {
-                         img.setImageBitmap(bitMap);
-                     } else {
-                         new ImageDownloaderTask(img, movie.id).execute(movie.thumbnail_url);
-                     }
-                  }
+                    itemListView.addView(movieView);
+                    Bitmap bitMap = ImageCache.getInstance().getBitmapFromMemCache(movie.id);
+                    if (bitMap != null) {
+                        img.setImageBitmap(bitMap);
+                    } else {
+                        new ImageDownloaderTask(img, movie.id).execute(movie.thumbnail_url);
+                    }
+                }
 
-                 galleryView.addView(genresListView);
-             }
+                galleryView.addView(genresListView);
+            }
 
-             ((LinearLayout)mRootView.findViewById(R.id.profileSection)).setOnClickListener(new View.OnClickListener() {
-                 @Override
-                 public void onClick(View v) {
-                     if (mUserModel.getUseProfile() == null) {
+            ((LinearLayout) mRootView.findViewById(R.id.profileSection)).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mUserModel.getUseProfile() == null) {
                         getUserProfile();
-                     } else {
+                    } else {
                         PersonDetailFragment fragment = new PersonDetailFragment();
                         replaceFragment(fragment, R.id.profile_detail_container);
-                     }
-                 }
-             });
-         }
+                    }
+                }
+            });
+        }
     }
 
     private void getUserProfile() {
@@ -181,7 +188,7 @@ public class GenresFragment extends ParentFragment {
         }
     }
 
-        private class UserProfileNetworkCallback implements NetworkCallback {
+    private class UserProfileNetworkCallback implements NetworkCallback {
         public void onResult(ServerReponse response) {
             mProgressBar.setVisibility(View.GONE);
             if (response != null) {
@@ -197,6 +204,28 @@ public class GenresFragment extends ParentFragment {
                 }
             }
         }
+
+        public void onFailed() {
+
+        }
+    }
+
+    private void onPopupMenu() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+        builder.setTitle("Alert")
+                .setMessage("Reconnect?")
+                .setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        initSearch();
+                    }
+                })
+                .setNegativeButton(R.string.Cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+        builder.setIcon(android.R.drawable.ic_dialog_alert);
+        builder.show();
     }
 
 }

@@ -3,4 +3,6 @@
 
     <string name="genres_url">https://private-anon-4e55a8a9a3-iosinterview1.apiary-mock.com/movies/genres</string>
     <string name="profile_url">https://private-anon-4e55a8a9a3-iosinterview1.apiary-mock.com/users/me</string>
+    <string name="OK">Ok</string>
+    <string name="Cancel">Cancel</string>
 </resources>
