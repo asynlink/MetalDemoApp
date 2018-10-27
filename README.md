@@ -8,9 +8,8 @@ How to build the project:
 
 Third party libraries:
 * gson -- parse json data in class object format.
-* de.hdodenhof:circleimageview  -- turn imageview to rounded imageview.
-* android.arch.lifecycle  -- ViewModel to persist data across all fragments.
-* recyclerview  -- display list view.
+* de.hdodenhof:circleimageview  -- turn imageview to rounded imageview. -- https://github.com/hdodenhof/CircleImageView
+* me.everything:overscroll-decor-android -- bounce effect. --- https://github.com/EverythingMe/overscroll-decor
 
 Future improvments & optimizations:
  * Replace custome http with retrofit.
