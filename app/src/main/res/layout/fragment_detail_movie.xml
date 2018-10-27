@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/movie_background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="260dp"
+                android:id="@+id/poster"
+                android:background="@drawable/movie_bg"
+                android:tint="#6F000000"
+                android:scaleType="centerCrop"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="28dp"
+                android:layout_marginTop="40dp">
+                <TextView
+                    android:id="@+id/movie_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="28dp"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:textSize="22sp"
+                    android:textStyle="bold"/>
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:id="@+id/visitWeb"
+                    android:background="@drawable/web"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/orangedark"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+            <TextView
+                android:id="@+id/imdbTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="IMDB"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/white"
+                android:layout_alignParentLeft="true"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/imdb_score"
+                android:layout_toRightOf="@id/imdbTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_toRightOf="@id/imdb_score"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/white"
+                android:text="/10"
+                android:gravity="center"
+                android:textSize="10sp"
+                android:paddingTop="8dp"/>
+
+            <TextView
+                android:id="@+id/percent"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/white"
+                android:text="%"
+                android:gravity="center"
+                android:textSize="10sp"
+                android:paddingTop="4dp"
+                android:layout_alignParentRight="true"/>
+
+            <TextView
+                android:id="@+id/rt_score"
+                android:layout_toLeftOf="@id/percent"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:gravity="center"/>
+
+            <TextView
+                android:layout_toLeftOf="@id/rt_score"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="ROTTEN TOMATOES"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/white"
+                android:gravity="center"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="14dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="14dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SYNOPSIS"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/orangedark"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:id="@+id/synopsis_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CAST &amp; CREW"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/orangedark"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:id="@+id/crewGallery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="horizontal">
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="30dp">
+            <ImageButton
+                android:id="@+id/liked"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/circle_shape_off"
+                android:src="@drawable/heart_off"
+                android:padding="18dp"
+                android:scaleType="fitCenter"
+                android:layout_marginRight="20dp" />
+            <ImageButton
+                android:layout_toRightOf="@id/liked"
+                android:id="@+id/webview"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/circle_shape_black"
+                android:padding="18dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/calenda"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+</ScrollView>
