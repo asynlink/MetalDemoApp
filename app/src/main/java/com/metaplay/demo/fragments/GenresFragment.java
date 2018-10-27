@@ -120,8 +120,7 @@ public class GenresFragment extends ParentFragment {
         if (genresData != null && genresData.length > 0) {
             mRootView.findViewById(R.id.buttonsSection).setVisibility(View.VISIBLE);
             for (Genres genres : genresData) {
-                View genresListView = LayoutInflater.from(getContext())
-                        .inflate(R.layout.genres_layout, galleryView, false);
+                View genresListView = mLayoutInflater.inflate(R.layout.genres_layout, galleryView, false);
 
                 ((TextView) genresListView.findViewById(R.id.genresTitle)).setText(genres.name.toUpperCase());
 
