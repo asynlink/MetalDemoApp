@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,8 @@ import com.metaplay.demo.http.ServerReponse;
 import com.metaplay.demo.user.UserProfile;
 
 import javax.net.ssl.HttpsURLConnection;
+
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 public class GenresFragment extends ParentFragment {
 
@@ -51,6 +54,8 @@ public class GenresFragment extends ParentFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_detail_genres, container, false);
+
+        OverScrollDecoratorHelper.setUpOverScroll((ScrollView)rootView.findViewById(R.id.genresPage));
 
         mLayoutInflater = inflater;
         mRootView = rootView;

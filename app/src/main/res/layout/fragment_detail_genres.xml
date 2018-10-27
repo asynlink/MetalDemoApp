@@ -8,6 +8,7 @@
         layout="@layout/bottom_buttons_layout" />
 
     <ScrollView
+        android:id="@+id/genresPage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/buttonsSection">
